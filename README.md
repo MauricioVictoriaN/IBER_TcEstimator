@@ -34,5 +34,7 @@ El marco integra **cinco módulos** alineados con los protocolos WMO, ASCE, ISO 
 | **E. Diagnóstico avanzado** | Evaluación del desempeño del modelo | KGE, NSE, PBIAS, autocorrelación, firma hidrológica |
 
 ---
-
+## Licencia y Autoría
+© 2024 Mauricio Javier Victoria Niño. 
+Todos los derechos reservados. El código se liberará bajo licencia de acceso abierto tras la publicación oficial del artículo asociado.
 
