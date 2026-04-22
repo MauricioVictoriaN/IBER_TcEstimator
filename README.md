@@ -35,6 +35,6 @@ El marco integra **cinco módulos** alineados con los protocolos WMO, ASCE, ISO 
 
 ---
 ## Licencia y Autoría
-© 2024 Mauricio Javier Victoria Niño. 
+© 2026 Mauricio Javier Victoria Niño. 
 Todos los derechos reservados. El código se liberará bajo licencia de acceso abierto tras la publicación oficial del artículo asociado.
 
