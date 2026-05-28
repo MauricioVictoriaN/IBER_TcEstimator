@@ -1,0 +1,192 @@
+EXECUTION LOG - 2026-05-27 17:41:01 
+================================================================================ 
+
+IBER_TcEstimator v1.0.0 — Proof-of-Concept
+
+================================================================================ 
+   STARTING ANALYSIS — IBER_TcEstimator v1.0.0 - Hydrological Event Signature
+================================================================================ 
+Configuration saved to:  D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/05_Execution_Log/config_used.csv 
+
+ -------------------------------------------------------------------------------- 
+   MODULE 1: DATA READING AND VALIDATION (v1.0.0)
+-------------------------------------------------------------------------------- 
+
+File: D:/R/Hyetograph_HydrographIBER_EN.xlsx 
+Sheets: Metadata, Hyetograph, Hydrograph 
+Detected Excel language: English 
+
+Metadata loaded:
+  Area (km2)       : 150.5 
+  Duration (h)     : 6 
+  Channel L (km)   : 28.36 
+  Slope (m/m)      : 0.0073 
+  Elevation (m)    : 207 
+  CN               : 82 
+  R Clark (h)      : N/A (using R=Tc) 
+  Rb Strahler      : 4.5 
+  Rl Strahler      : 2 
+  v GIUH (m/s)     : 1 
+
+Records: Hyetograph = 29 | Hydrograph = 53 
+
+Quality checks:
+  ALERT IQR outliers in Precipitation : 2 point(s) outside [ -12.186 , 16.248 ]
+
+Preliminary statistics:
+  Total P (sum*dt): 55.43 mm
+  Peak discharge  : 2.629 m3/s
+  Initial Q       : 0.0238 m3/s ( 0.9 % of peak)
+
+  --- Input data integrity validation ---
+  Input validation: PASSED (11 checks)
+
+
+ ================================================================================ 
+   MODULE 2: COMPLETE HYDROLOGICAL ANALYSIS (v1.0.0)
+================================================================================ 
+
+[1/9] Interpolation: dt = 0.005 h | 2801 points
+
+[2/9] Mass balance:
+  Rainfall volume: 8,323,064 m3
+  Discharge volume: 20,955 m3
+  PBIAS: 99.75 %
+
+[3/9] Baseflow separation (Modules B1, B2):
+  Estimating alpha via recession curve...
+  NOTE: No recession segments found. Using alpha = 0.925.
+  Filter comparison (alpha = 0.925 ):
+    Eckhardt (2005) -> BFI = 0.7982 
+    Chapman (1999) -> BFI = 0.4971 
+    Lyne-Hollick (1979) -> BFI = 0.9886 
+  Primary method for analysis: Eckhardt (2005) 
+
+[4/9] Effective precipitation CN-NRCS (Module C1):
+  CN = 82 | S = 55.76 mm | Ia = 11.15 mm | Pe_total = 19.51 mm
+
+  CN vs IBER consistency check (Module C2):
+  CN-NRCS runoff volume: 2,936,496 m3
+  IBER runoff volume   : 20,955 m3
+  CN vs IBER difference: 99.29 %
+  ALERT: Difference >25%. Check CN consistency in IBER.
+
+[5/9] Tc estimation — SCS Lag method:
+  T50: 3.29 h | Qp_time: 14 h
+  Lag: 10.71 h | Tc: 17.85 h  (Lag->Tc coef = 0.6 )
+  Bootstrap: median Lag = 3.545 h | mean = 3.4953 h | sd = 2.0317 h
+  [BCa Conv] Relative CI width difference (50% vs 100% replicates): 0.8227 %
+  [BCa Conv] Status:CONVERGED (OK)  Tc 95 % CI (Bootstrap BCa): [ 0.2833 , 11.3831 ] h
+
+[6/9] GLUE — Tc posterior distribution (Module A1):
+
+[GLUE] Monte Carlo sampling: N = 5000 realisations...
+[GLUE] Parallelisation: DISABLED (sequential default).
+[GLUE] For multi-event analysis, enable future.apply in code.
+  Behavioural realisations (KGE >= 0.5 ): 1580 ( 31.6 % of total)
+  Posterior Tc — median: 16.1987 h | 95% CI [ 12.7119 , 19.7541 ] h
+
+[7/9] Unit hydrographs (Modules D1, D2, D3):
+  SCS UH   | KGE = 0.667 | NSE = 0.808 
+  Generating Clark UH...
+  Clark UH | KGE = -0.411 | NSE = -1.783 
+  Generating GIUH...
+  GIUH: k = 5.4145 h | m = 6.5671 | Qp_GIUH = 13.2268 m3/s/mm
+  GIUH     | KGE = 0.241 | NSE = -0.122 
+  Tikhonov deconvolution (empirical UH)...
+  Empirical UH: Qp = 0.90718 m3/s/mm
+
+[8/9] Advanced metrics (Modules E1-E4):
+  Peak metrics (E1, E3):
+    Peak Flow Bias (PBPF): -22.08 %
+    Peak Time Error      : 0 h
+    Amplitude Ratio      : 0.7792 
+  Residual autocorrelation tests (E2):
+  Durbin-Watson: stat = 0 | p-value = 0 
+  Ljung-Box    : stat = 27553.04 | p-value = 0 
+  Conclusion   : Significant autocorrelation: structural model error 
+  Tc -> Qp elasticity (E4):
+  Elasticity epsilon (Tc->Qp): -1.5671   [DeltaQp/Qp per DeltaTc/Tc]
+
+[9/9] Hydrological Event Signature — FDC (Module E5):
+
+  --- HYDROLOGICAL EVENT SIGNATURE (FDC) ---
+  METHODOLOGICAL NOTE: The computed FDC corresponds to the synthetic
+  design event and does NOT represent the annual hydrological regime.
+  It is interpreted as the temporal flow distribution during the flood.
+  Richards-Baker Flashiness Index: 9e-04 -> Highly ATTENUATED hydrograph
+  --- Event Percentiles (Flow Duration) ---
+    Q5  (exc. 5%)  : 0.962 m3/s  [Flood peak]
+    Q10 (exc. 10%) : 0.8866 m3/s  [High flows]
+    Q50 (exc. 50%) : 0.367 m3/s  [Event median flow]
+    Q90 (exc. 90%) : 0.0328 m3/s  [Recession / Low flow]
+    Q95 (exc. 95%) : 0.0122 m3/s  [Baseflow / End]
+  Recession Slope (Q10-Q90): 0.017898 -> VERY SLOW recession (High attenuation)
+
+--- Empirical Tc Formulas (Reference) ---
+   Kirpich (1940) : 19.7046 h
+   Temez (1978) : 9.7084 h
+   Giandotti (1934) : 7.9593 h
+  ⚠  Record duration (14 h) < 2.5 x Tc (17.85 h). Baseflow separation may be unreliable. Recommended duration >= 44.6 h. 
+  ⚠  IBER peak discharge (1.04 m3/s) differs significantly from SCS UH expectation (34.22 m3/s). Ratio = 0.03. Check IBER hydrograph consistency. 
+
+--- Execution times by module ---
+  Baseflow separation (3 filters)              0.14 s
+  Effective precipitation (CN-NRCS)            0.02 s
+  Bootstrap BCa (Tc estimation)                0.71 s
+  GLUE (N=5000)                               62.49 s
+  Unit hydrographs & metrics                  23.06 s
+  TOTAL                                       86.41 s (TOTAL)
+
+Generating plots...
+  Plots saved to: D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/04_Plots_PNG 
+
+Exporting results to Excel...
+  Excel: D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/02_Numerical_Results/IBERv_Results.xlsx 
+  Exporting additional CSVs...
+  CSVs saved to: D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/02_Numerical_Results 
+Generating text report...
+  Report TXT: D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/03_Text_Report/IBERv_Report.txt 
+
+ ================================================================================ 
+   ANALYSIS COMPLETED — IBER_TcEstimator v1.0.0
+================================================================================ 
+
+MAIN RESULTS:
+  Tc SCS (Bootstrap) = 17.85 h  ( 1071 min)
+  95% CI Bootstrap BCa: [ 0.2833 , 11.3831 ] h
+  Tc GLUE median     = 16.1987 h
+  95% CI GLUE        : [ 12.7119 , 19.7541 ] h
+
+--- HYDROLOGICAL EVENT SIGNATURE (FDC) ---
+  NOTE: The FDC describes the temporal flow distribution during the flood.
+  R-B Flashiness Index: 0.000892 -> ATTENUATED hydrograph
+  Recession Slope: 0.017898 -> VERY SLOW recession (High attenuation)
+
+  Q10 (High flow): 0.8866 m3/s
+  Q50 (Median):    0.367 m3/s
+  Q90 (Recession): 0.0328 m3/s
+
+Total execution time: 95.62 s
+
+ ================================================================================ 
+   ⚠ WARNINGS SUMMARY (2)
+================================================================================ 
+   [1] Record duration (14 h) < 2.5 x Tc (17.85 h). Baseflow separation may be unreliable. Recommended duration >= 44.6 h. 
+   [2] IBER peak discharge (1.04 m3/s) differs significantly from SCS UH expectation (34.22 m3/s). Ratio = 0.03. Check IBER hydrograph consistency. 
+
+
+RESULTS FOLDER:
+   D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01 
+
+STRUCTURE:
+  +-- 01_Input_Data/
+  +-- 02_Numerical_Results/    <- Excel + CSV
+  +-- 03_Text_Report/
+  +-- 04_Plots_PNG/            <- 10 figures
+  +-- 05_Execution_Log/        <- Config + session_info
+
+  session_info saved to: D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01/05_Execution_Log/session_info.txt 
+================================================================================ 
+   END OF PROGRAM
+================================================================================ 

@@ -1,0 +1,102 @@
+================================================================================
+        HYDROLOGICAL REPORT — IBER_TcEstimator v1.0.0
+        Hydrological Event Signature
+================================================================================
+Date    : 2026-05-27 17:42:37
+Folder  : D:/R/IBERv1.0.0_Results_2026-05-27_17-41-01
+--------------------------------------------------------------------------------
+
+1. WATERSHED DATA
+   Area (km2)       : 150.5
+   Duration (h)     : 6
+   CN               : 82
+   Channel L (km)   : 28.36
+   Slope (m/m)      : 0.0073
+
+2. BASEFLOW SEPARATION (ISO 748 — three filters)
+   Alpha (recession): 0.925
+   Eckhardt (2005)-> BFI = 0.7982
+   Chapman (1999)-> BFI = 0.4971
+   Lyne-Hollick (1979)-> BFI = 0.9886
+
+3. EFFECTIVE PRECIPITATION CN-NRCS
+   CN      : 82 | S = 55.76 mm | Ia = 11.15 mm
+   Pe total: 19.51 mm
+   CN vs IBER diff: 99.29 %
+
+4. Tc ESTIMATION — SCS LAG METHOD
+   T50 (h) : 3.29
+   Qp_time (h) : 14
+   Lag (h) : 10.71
+   Lag->Tc coef : 0.6
+   Tc  (h) : 17.85 = 1071 min
+   95% CI Bootstrap BCa: [0.2833, 11.3831] h
+
+5. GLUE — POSTERIOR DISTRIBUTION OF Tc
+   N samples     : 5000 | N behavioural : 1580
+   KGE threshold : 0.5
+   Tc median (h) : 16.1987
+   Tc mean   (h) : 15.7596
+   Tc SD     (h) : 1.5588
+   95% CI GLUE   : [12.7119, 19.7541] h
+
+6. GOODNESS-OF-FIT METRICS (Qd obs vs SCS UH)
+   KGE   (Gupta 2009) : 0.6674
+   KGE'' (Kling 2012) : 0.6198
+   NSE   (Nash 1970)  : 0.8083
+   RMSE  (m3/s)       : 0.0274
+   NRMSE              : 0.13116
+   KGE -> Good
+   NSE -> Very Good
+   PBIAS (%) -> Unsatisfactory
+
+7. PHASE AND AMPLITUDE METRICS (Modules E1-E3)
+   Peak Flow Bias (PBPF) : -22.08 %
+   Peak Time Error       : 0 h
+   Amplitude Ratio       : 0.7792
+
+8. RESIDUAL DIAGNOSTICS (Module E2)
+   Durbin-Watson stat : 0 | p-value : 0
+   Ljung-Box stat     : 27553.038 | p-value : 0
+   Conclusion         : Significant autocorrelation: structural model error
+
+9. SENSITIVITY AND ELASTICITY (Module E4)
+   Tc->Qp Elasticity : -1.5671
+
+10. HYDROLOGICAL EVENT SIGNATURE — FDC (Module E5)
+    METHODOLOGICAL NOTE: The computed FDC corresponds to the synthetic
+    design event and does NOT represent the annual hydrological regime.
+    It is interpreted as the temporal flow distribution during the flood.
+
+    --- Hydrograph Shape Metrics ---
+    R-B Flashiness Index : 0.000892
+    >> Interpretation: Highly ATTENUATED hydrograph.
+
+    --- Event Percentiles (High Flow Duration) ---
+    Q5  (Flood peak, exc. 5%)   : 0.962 m3/s
+    Q10 (High flows, exc. 10%)  : 0.8866 m3/s
+    Q50 (Event median)          : 0.367 m3/s
+    Q90 (Recession, exc. 90%)   : 0.0328 m3/s
+    Q95 (Baseflow/End, exc. 95%): 0.0122 m3/s
+
+    Recession Slope (Q10-Q90) : 0.017898
+    >> Interpretation: VERY SLOW recession.
+
+11. EMPIRICAL Tc FORMULAS (reference only)
+    Kirpich (1940): 19.7046 h
+    Temez (1978): 9.7084 h
+    Giandotti (1934): 7.9593 h
+
+================================================================================
+REFERENCES (selected)
+  Baker et al. (2004). JAWRA 40(2), 503-522.
+  Beven & Binley (1992). Hydrol. Process. 6(3), 279-298.
+  Eckhardt (2005). Hydrol. Process. 19(2), 507-515.
+  Gupta et al. (2009). J. Hydrol. 377, 80-91.
+  Moriasi et al. (2007). Trans. ASABE 50(3), 885-900.
+  Nash & Sutcliffe (1970). J. Hydrol. 10(3), 282-290.
+  NRCS (2004, 2010). NEH Part 630, Chapters 10, 15, 16. USDA.
+  Rodriguez-Iturbe & Valdes (1979). WRR 15(6), 1409-1420.
+  Searcy (1959). Flow-duration curves. USGS Water Supply Paper 1542-A.
+  WMO (2008). Guide to Hydrological Practices, WMO-No. 168.
+================================================================================

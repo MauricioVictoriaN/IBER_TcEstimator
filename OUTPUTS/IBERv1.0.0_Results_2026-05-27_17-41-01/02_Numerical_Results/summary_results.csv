@@ -1,0 +1,31 @@
+"Parameter","Value"
+"Watershed area (km2)",150.5
+"Storm duration (h)",6
+"CN (NRCS)",82
+"Recession alpha (estimated)",0.925
+"BFI (Eckhardt primary)",0.7982
+"Total precipitation (mm)",55.427
+"Peak discharge total (m3/s)",2.629
+"T50 rainfall centroid (h)",3.29
+"Qp_time peak Qd (h)",14
+"Lag (h)",10.71
+"Tc_SCS (h)",17.85
+"Tc CI95 lower Bootstrap (h)",0.2833
+"Tc CI95 upper Bootstrap (h)",11.3831
+"Tc GLUE median (h)",16.1987
+"Tc GLUE CI95 lower (h)",12.7119
+"Tc GLUE CI95 upper (h)",19.7541
+"Rainfall volume (m3)",8323064
+"Runoff volume (m3)",20955
+"PBIAS (%)",99.748
+"CN vs IBER diff (%)",99.29
+"KGE_SCS",0.6674
+"KGEpp_SCS",0.6198
+"NSE_SCS",0.8083
+"RMSE_SCS (m3/s)",0.0274
+"NRMSE_SCS",0.13116
+"Peak Flow Bias PBPF (%)",-22.08
+"Peak Time Error (h)",0
+"Amplitude Ratio",0.7792
+"Tc->Qp Elasticity",-1.5671
+"R-B Flashiness Index",9e-04

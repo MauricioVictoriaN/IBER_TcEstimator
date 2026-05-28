@@ -1,0 +1,6 @@
+"module","time_seconds"
+"Baseflow separation (3 filters)",0.138513803482056
+"Effective precipitation (CN-NRCS)",0.0181069374084473
+"Bootstrap BCa (Tc estimation)",0.70760178565979
+"GLUE (N=5000)",62.4920859336853
+"Unit hydrographs & metrics",23.0584650039673
